@@ -1,7 +1,7 @@
 # Create react native project
 
 ```
-npx create-expo-app my-app
+npx create-expo-app fifty-four
 ```
 
 # Config tailwind (naitivewind)
