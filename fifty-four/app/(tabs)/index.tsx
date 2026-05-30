@@ -1,13 +1,20 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet, Text } from 'react-native';
+import {Platform, StyleSheet, Text} from 'react-native';
 
 import { HelloWave } from '@/components/hello-wave';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import {Link, Redirect} from 'expo-router';
 
 export default function HomeScreen() {
+  const isAuth = true;
+
+  if(isAuth)
+  {
+    return <Redirect href='/login' />;
+  }
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -18,7 +25,9 @@ export default function HomeScreen() {
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <Text className={"text-3xl color-red-500"}>Привіт</Text>
+        <Text className={"text-3xl color-yellow-700"}>
+          Привіт
+        </Text>
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>

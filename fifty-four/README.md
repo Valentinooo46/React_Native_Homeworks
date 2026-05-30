@@ -81,6 +81,7 @@ import '../global.css';
 ## npm install babel-preset-expo --save-dev
 ```
 npm install babel-preset-expo --save-dev
+npx expo install --check
 ```
 
 ## Get started
