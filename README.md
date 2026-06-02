@@ -51,3 +51,9 @@ module.exports = withNativeWind(config, { input: './global.css' })
 @tailwind components;
 @tailwind utilities;
 ```
+
+## Add nginx Config /etc/nginx/sites-available/default
+```
+
+
+```
