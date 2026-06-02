@@ -1,11 +1,17 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using WebApiReact;
 using WebApiReact.Data;
 using WebApiReact.Entities.Identity;
+using WebApiReact.Interfaces;
+using WebApiReact.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddScoped<IImageService, ImageService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
@@ -35,8 +41,20 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+var dir = builder.Configuration["ImagesDir"];
+var path = Path.Combine(Directory.GetCurrentDirectory(), dir);
+Directory.CreateDirectory(path);
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(path),
+    RequestPath = $"/{dir}"
+});
+
 app.UseAuthorization();
 
 app.MapControllers();
+
+await app.SeedData();
 
 app.Run();
