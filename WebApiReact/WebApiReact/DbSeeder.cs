@@ -1,11 +1,11 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using WebApiReact.Constants;
 using WebApiReact.Data;
 using WebApiReact.Entities.Identity;
 using WebApiReact.Interfaces;
+using WebApiReact.Mapper;
 using WebApiReact.Models.Seeder;
 
 namespace WebApiReact;
@@ -19,7 +19,8 @@ public static class DbSeeder
         var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<RoleEntity>>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<UserEntity>>();
-        
+        var userMapper = scope.ServiceProvider.GetRequiredService<UserMapper>();
+
         context.Database.Migrate();
 
         if (!context.Roles.Any())
@@ -46,13 +47,14 @@ public static class DbSeeder
                     foreach (var user in users)
                     {
                         //var entity = mapper.Map<UserEntity>(user);
-                        var entity = new UserEntity
-                        {
-                            Email = user.Email,
-                            UserName = user.Email,
-                            FirstName = user.FirstName,
-                            LastName = user.LastName
-                        };
+                        var entity = userMapper.UserSeederToUser(user);
+                        //var entity = new UserEntity
+                        //{
+                        //    Email = user.Email,
+                        //    UserName = user.Email,
+                        //    FirstName = user.FirstName,
+                        //    LastName = user.LastName
+                        //};
                         entity.Image = await imageService.SaveImageFromUrlAsync(user.ImagePath);
                         var result = await userManager.CreateAsync(entity, user.Password);
                         if (!result.Succeeded)
