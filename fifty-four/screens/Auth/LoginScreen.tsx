@@ -6,7 +6,7 @@ import {loginSuccess} from "@/store/reducers/AuthSlice";
 import {useAppDispatch} from "@/hooks/redux";
 import {useState} from "react";
 import ILoginModel from "@/models/ILoginModel";
-
+import * as SecureStore from 'expo-secure-store';
 
 
 export default function LoginScreen() {
@@ -15,8 +15,6 @@ export default function LoginScreen() {
     const [serverError, setServerError] = useState<string | null>(null);
     const dispatch = useAppDispatch();
     const router = useRouter();
-
-
 
     const onSubmit = async (data: ILoginModel) => {
         console.log("Form data:", data);
@@ -27,6 +25,8 @@ export default function LoginScreen() {
                 console.log(result.token);
                 // 2. Hydrate your global Redux state
                 dispatch(loginSuccess(result.token));
+                //Потрібно зберегти глобально інформацію про користувача
+                await SecureStore.setItemAsync('accessToken',  result.token);
                 router.push("/explore");
             }
         }
@@ -49,10 +49,12 @@ export default function LoginScreen() {
 
     };
 
-
+    const onHandleToLogger = () => {
+        router.push("/logger");
+    }
 
     return (
-        <View className="flex-1 justify-center items-center bg-gray-100 px-6">
+        <View className="flex-1 justify-center bg-zinc-50 items-center px-6">
             <Text className="text-3xl font-bold text-blue-600 mb-8">
                 Увійти в акаунт
             </Text>
@@ -97,6 +99,12 @@ export default function LoginScreen() {
                        className="w-full max-w-md bg-blue-500 rounded-lg py-3 items-center"
             >
                 <Text className="text-white font-semibold">Увійти</Text>
+            </Pressable>
+
+            <Pressable onPress={onHandleToLogger}
+                       className="mt-4 w-full max-w-md bg-blue-500 rounded-lg py-3 items-center"
+            >
+                <Text className="text-white font-semibold">Логер</Text>
             </Pressable>
         </View>
     );
