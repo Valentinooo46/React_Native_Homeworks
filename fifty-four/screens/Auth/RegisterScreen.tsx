@@ -7,6 +7,7 @@ import {
     StatusBar
 } from "react-native";
 import {useForm, Controller} from "react-hook-form";
+import {ImagePickerButton} from "@/components/form/ImagePickerButton";
 
 import * as ImagePicker from "expo-image-picker"
 
@@ -20,8 +21,33 @@ export default function RegisterScreen() {
     const {control, handleSubmit} = useForm<RegisterFormData>();
 
     const pickImage = async () => {
-        console.log("Pick image");
+        // console.log("Pick image");
+        const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (!permissionResult.granted) {
+            alert("Доступ до галереї потрібен для вибору фото.");
+            return;
+        }
+
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1,
+        });
+
+        // if (!result.canceled) {
+        //     setForm((prev) => ({
+        //         ...prev,
+        //         imageFile: {
+        //             uri: result.assets[0].uri,
+        //             name: "avatar.jpg",
+        //             type: "image/jpeg",
+        //         },
+        //     }));
+        // }
+
     }
+
 
     const onSubmit = (data: RegisterFormData) => {
         console.log("Form data:", data);
@@ -50,6 +76,16 @@ export default function RegisterScreen() {
                         <Text className="text-3xl font-bold text-blue-600 mb-8">
                             Реєстрація користувача
                         </Text>
+
+                        <View className={"items-center my-8"}>
+                            <ImagePickerButton
+                                imageUri = {null}
+                                onPress = {pickImage}
+                                />\
+                            <Text className="text-zinc-400 dark:text-zinc-500 mt-2">
+                                Натисніть, щоб обрати фото
+                            </Text>
+                        </View>
 
                         <Controller control={control}
                                     name="email"
