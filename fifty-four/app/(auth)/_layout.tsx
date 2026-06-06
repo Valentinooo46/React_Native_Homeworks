@@ -1,6 +1,6 @@
-import {View, KeyboardAvoidingView, Platform} from "react-native";
+import {View} from "react-native";
 import {Slot} from "expo-router";
-import {AuthTabs} from "../../components/auth/AuthTabs";
+import {AuthTabs} from "@/components/auth/AuthTabs";
 import {SafeAreaView} from "react-native-safe-area-context";
 
 export default function AuthLayout() {

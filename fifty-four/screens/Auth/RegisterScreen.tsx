@@ -8,14 +8,20 @@ import {
 } from "react-native";
 import {useForm, Controller} from "react-hook-form";
 
+import * as ImagePicker from "expo-image-picker"
+
 type RegisterFormData = {
     email: string;
     password: string;
 };
 
+
 export default function RegisterScreen() {
     const {control, handleSubmit} = useForm<RegisterFormData>();
 
+    const pickImage = async () => {
+        console.log("Pick image");
+    }
 
     const onSubmit = (data: RegisterFormData) => {
         console.log("Form data:", data);
