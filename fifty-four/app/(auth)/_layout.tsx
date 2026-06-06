@@ -1,35 +1,15 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import {View, KeyboardAvoidingView, Platform} from "react-native";
+import {Slot} from "expo-router";
+import {AuthTabs} from "../../components/auth/AuthTabs";
+import {SafeAreaView} from "react-native-safe-area-context";
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export default function TabLayout() {
-    const colorScheme = useColorScheme();
-
+export default function AuthLayout() {
     return (
-        <Tabs
-            screenOptions={{
-                tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-                headerShown: false,
-                tabBarButton: HapticTab,
-            }}>
-            <Tabs.Screen
-                name="login"
-                options={{
-                    title: 'Вхід',
-                    tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-                }}
-            />
-            <Tabs.Screen
-                name="register"
-                options={{
-                    title: 'Реєстрація',
-                    tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-                }}
-            />
-        </Tabs>
+        <View className="flex-1 bg-white dark:bg-zinc-950">
+            <SafeAreaView className="flex-1 p-6">
+                <Slot/>
+                <AuthTabs/>
+            </SafeAreaView>
+        </View>
     );
 }

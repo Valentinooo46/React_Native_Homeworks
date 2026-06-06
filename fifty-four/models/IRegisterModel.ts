@@ -1,7 +1,9 @@
-export default interface IRegisterModel {
-    username: string;
+import {IImageFile} from "@/models/common/IImageFile";
+
+export interface IRegister {
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
-    confirmPassword: string;
-    avatar:  File | null;
+    imageFile?: IImageFile;
 }

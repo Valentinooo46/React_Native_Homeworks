@@ -54,7 +54,7 @@ export default function LoginScreen() {
     }
 
     return (
-        <View className="flex-1 justify-center items-center bg-gray-100 px-6">
+        <View className="flex-1 justify-center bg-zinc-50 items-center px-6">
             <Text className="text-3xl font-bold text-blue-600 mb-8">
                 Увійти в акаунт
             </Text>
