@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApiReact.Entities.Identity;
 using WebApiReact.Interfaces;
@@ -53,4 +54,15 @@ public class AccountController(IJwtTokenService jwtTokenService,
         }
         return BadRequest(result);
     }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> Me()
+    {
+        var email = User.Claims.First()?.Value;
+        var user = await userManager.FindByEmailAsync(email);
+        MeModel me = userMapper.UserToMeModel(user);
+        return Ok(me);
+    }
+
 }
