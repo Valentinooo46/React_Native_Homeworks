@@ -75,6 +75,32 @@ builder.Services.AddOpenApi(options =>
 {
     options.AddDocumentTransformer((document, context, cancellationToken) =>
     {
+        document.Components ??= new OpenApiComponents();
+        document.Components.SecuritySchemes ??= new Dictionary<string, IOpenApiSecurityScheme>();
+
+        document.Components.SecuritySchemes["Bearer"] = new OpenApiSecurityScheme
+        {
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            In = ParameterLocation.Header,
+            Name = "Authorization",
+            Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\""
+        };
+
+        document.Security = [
+            new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecuritySchemeReference("Bearer"),
+                    []
+                }
+            }
+        ];
+
+        document.SetReferenceHostDocument();
+
+
         document.Servers = [
                 new OpenApiServer
             {
@@ -101,8 +127,7 @@ app.MapOpenApi();
 
 app.UseSwaggerUI(options =>
 {
-    options.RoutePrefix = "swagger";
-    options.SwaggerEndpoint("/openapi/v1.json", "JustDoIt API v1");
+    options.SwaggerEndpoint("/openapi/v1.json", "v1");
     options.OAuthUsePkce();
 });
 
@@ -116,6 +141,7 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = $"/{dir}"
 });
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
