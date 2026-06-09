@@ -1,17 +1,17 @@
 import { View, Text, TextInput, Pressable } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import {useRouter} from "expo-router";
-import {authService} from "@/service/AuthService";
 import {loginSuccess} from "@/store/reducers/AuthSlice";
 import {useAppDispatch} from "@/hooks/redux";
 import {useState} from "react";
 import ILoginModel from "@/models/ILoginModel";
 import * as SecureStore from 'expo-secure-store';
+import {useLoginMutation} from "@/service/AuthService";
 
 
 export default function LoginScreen() {
     const { control, handleSubmit } = useForm<ILoginModel>();
-    const [login, { isLoading }] = authService.useLoginMutation();
+    const [login, { isLoading }] = useLoginMutation();
     const [serverError, setServerError] = useState<string | null>(null);
     const dispatch = useAppDispatch();
     const router = useRouter();
@@ -49,9 +49,9 @@ export default function LoginScreen() {
 
     };
 
-    const onHandleToLogger = () => {
-        router.push("/logger");
-    }
+    // const onHandleToLogger = () => {
+    //     router.push("/logger");
+    // }
 
     return (
         <View className="flex-1 justify-center bg-zinc-50 items-center px-6">
@@ -99,12 +99,6 @@ export default function LoginScreen() {
                        className="w-full max-w-md bg-blue-500 rounded-lg py-3 items-center"
             >
                 <Text className="text-white font-semibold">Увійти</Text>
-            </Pressable>
-
-            <Pressable onPress={onHandleToLogger}
-                       className="mt-4 w-full max-w-md bg-blue-500 rounded-lg py-3 items-center"
-            >
-                <Text className="text-white font-semibold">Логер</Text>
             </Pressable>
         </View>
     );

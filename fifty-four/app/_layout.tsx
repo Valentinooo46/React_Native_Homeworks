@@ -5,12 +5,11 @@ import 'react-native-reanimated';
 import '../global.css';
 import {useColorScheme} from '@/hooks/use-color-scheme';
 import {Provider} from "react-redux";
-import {setupStore} from "@/store";
+import {store} from "@/store";
 import * as SecureStore from 'expo-secure-store';
 import {loginSuccess} from "@/store/reducers/AuthSlice";
 import {useEffect, useState} from "react";
 
-const store = setupStore();
 
 export default function RootLayout() {
 
@@ -29,7 +28,7 @@ export default function RootLayout() {
         // console.log("User info", accessToken);
         if (accessToken) {
             store.dispatch(loginSuccess(accessToken));
-            console.log("User info", accessToken);
+            // console.log("User info", accessToken);
         }
     }
 

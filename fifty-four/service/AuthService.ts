@@ -5,14 +5,19 @@ import { BASE_URL } from "@/api";
 import type IRegisterModel from "../models/IRegisterModel.ts";
 import type ILoginModel from "../models/ILoginModel.ts";
 import {serialize} from "object-to-formdata";
-
+import IMeModel from "@/models/IMeModel";
+import * as SecureStore from "expo-secure-store";
 
 export const authService = createApi({
     reducerPath: 'authApi',
     baseQuery: fetchBaseQuery({
         baseUrl: `${BASE_URL}/Account/`,
-        prepareHeaders: (headers) => {
+        prepareHeaders: async  (headers) => {
+            const token = await SecureStore.getItemAsync("accessToken");
             headers.set('Content-Type', 'application/json');
+            if (token) {
+                headers.set("Authorization", `Bearer ${token}`);
+            }
             return headers;
         },
     }),
@@ -38,9 +43,20 @@ export const authService = createApi({
                     body: model,
                 }
             }
+        }),
+        me: build.query<IMeModel, void>({
+            query: () => {
+                return {
+                    url: "Me",
+                    method: "GET",
+                }
+            }
         })
-
     })
 })
 
-export const { useRegisterMutation, useLoginMutation } = authService;
+export const {
+    useRegisterMutation,
+    useLoginMutation,
+    useMeQuery,
+} = authService;
