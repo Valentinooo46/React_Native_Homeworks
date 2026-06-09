@@ -10,11 +10,11 @@ export const ImagePickerButton: React.FC<ImagePickerButtonProps> =
         return (
             <TouchableOpacity
                 activeOpacity={0.8}
-                className={"w-36 w-36 rounded-full bg-emerald-500/10 items-center justify-center"}
+                className={"w-36 h-36 rounded-full bg-emerald-500/10 items-center justify-center"}
                 onPress={onPress}
             >
                 {imageUri ? (
-                    <Image source={{uri: imageUri}} className="w-36 w-36 rounded-full"/>
+                    <Image source={{uri: imageUri}} className="w-36 h-36 rounded-full"/>
                 ) : (
                     <Text className="text-8xl">📷</Text>
                 )
