@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Перевірка роботи SignalR</title>
+</head>
+<body>
+<main>
+    <h1>Чат SignalR</h1>
+    <div id="inputForm">
+        <input type="text" id="message"/>
+        <input type="button" id="sendBtn" value="Отправить"/>
+    </div>
+    <div id="chatroom"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/9.0.6/signalr.min.js"
+          integrity="sha512-kkMt8UThSmWcdXLYFaGZ/U6vyWSNLZMUWQ5SMeF80pGqrEkH5ei9D/3MbVQpB8p7D5C3A4vlX7BpsWTT2BfB6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    const hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl("http://localhost:5221/chat")
+            .withAutomaticReconnect()
+            .build();
+    hubConnection.on("Send",function(data){
+      let elem = document.createElement("p");
+      elem.appendChild(document.createTextNode(data));
+      let firstElem = document.getElementById("chatroom").firstChild;
+      document.getElementById("chatroom").insertBefore(elem, firstElem);
+    });
+
+    document.getElementById("sendBtn").addEventListener("click", function(e) {
+      let message = document.getElementById("message").value;
+      hubConnection.invoke("Send", message);
+    });
+
+    hubConnection.start();
+  </script>
+
+</main>
+</body>
+</html>
