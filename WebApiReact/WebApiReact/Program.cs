@@ -9,6 +9,7 @@ using System.Text;
 using WebApiReact;
 using WebApiReact.Data;
 using WebApiReact.Entities.Identity;
+using WebApiReact.Hubs;
 using WebApiReact.Interfaces;
 using WebApiReact.Mapper;
 using WebApiReact.Services;
@@ -117,9 +118,13 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 app.UseCors();
+
+app.MapHub<ChatHub>("/chat");
 
 // Configure the HTTP request pipeline.
 
