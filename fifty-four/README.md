@@ -84,6 +84,43 @@ npm install babel-preset-expo --save-dev
 npx expo install --check
 ```
 
+
+## Якщо не працює на сервері SirgnalR default nginx
+```
+server {
+server_name   p32-native.itstep.click *.p32-native.itstep.click;
+client_max_body_size 250M;
+location / {
+        proxy_pass         http://localhost:4384;
+        proxy_http_version 1.1;
+		
+        # SignalR / WebSocket
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # важливо для SignalR
+        proxy_read_timeout 86400;
+        proxy_send_timeout 86400;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/p32-native.itstep.click/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/p32-native.itstep.click/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+
+sudo systemctl restart nginx
+```
+
 ## Get started
 
 1. Install dependencies

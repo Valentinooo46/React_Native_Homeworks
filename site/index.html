@@ -19,7 +19,8 @@
 
   <script>
     const hubConnection = new signalR.HubConnectionBuilder()
-            .withUrl("http://localhost:5221/chat")
+            // .withUrl("http://localhost:5221/chat")
+            .withUrl("https://p32-native.itstep.click/chat")
             .withAutomaticReconnect()
             .build();
     hubConnection.on("Send",function(data){
