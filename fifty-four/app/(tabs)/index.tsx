@@ -73,7 +73,7 @@ export default function HomeScreen() {
             {me && (
                 <>
                     {/* Header: Avatar + Name */}
-                    <ThemedView className="items-center pt-2 pb-4">
+                    <ThemedView className="items-center pt-2 pb-2">
                         <View className="w-20 h-20 rounded-full overflow-hidden border-2 border-white shadow mb-3">
                             <Image
                                 source={{ uri: me?.image ? `https://p32-native.itstep.click/images/200_${me.image}` : undefined }}
@@ -87,6 +87,15 @@ export default function HomeScreen() {
                         <ThemedText className="text-sm text-gray-500 mt-1">
                             #{me.id}
                         </ThemedText>
+                    </ThemedView>
+
+                    <ThemedView className="items-center mt-4 mb-2">
+                        <Pressable
+                            onPress={()=>router.push("/chat")}
+                            className="bg-blue-500 px-6 py-3 rounded-lg"
+                        >
+                            <Text className="text-white font-semibold">Перейти в чат</Text>
+                        </Pressable>
                     </ThemedView>
 
                     {/* Info card */}
