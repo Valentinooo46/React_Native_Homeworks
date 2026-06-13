@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 using System.ComponentModel.DataAnnotations;
+=======
+﻿using System.ComponentModel.DataAnnotations;
+>>>>>>> origin/main
 
 namespace WebApiReact.Entities;
 

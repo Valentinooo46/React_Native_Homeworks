@@ -19,4 +19,3 @@ public class ChatEntity : BaseEntity<long>
     // Список повідомлень в чаті
     public virtual ICollection<ChatMessageEntity>? Messages { get; set; }
 }
- 

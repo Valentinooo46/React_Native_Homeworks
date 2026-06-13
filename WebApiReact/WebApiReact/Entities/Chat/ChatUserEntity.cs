@@ -15,4 +15,3 @@ public class ChatUserEntity
     public bool IsAdmin { get; set; } = false;
     public DateTime JoinedAt { get; set; } = DateTime.UtcNow;
 }
- 

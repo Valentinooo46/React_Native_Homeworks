@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using WebApiReact.Entities.Chat;
 
 namespace WebApiReact.Entities.Identity;
 
@@ -13,5 +14,4 @@ public class UserEntity : IdentityUser<long>
     public virtual ICollection<ChatUserEntity>? ChatUsers { get; set; }
     public virtual ICollection<ChatMessageEntity>? Messages { get; set; }
     public virtual ICollection<ChatMessageReadEntity>? MessageReads { get; set; }
-   
 }

@@ -31,4 +31,3 @@ public class ChatMessageEntity : BaseEntity<long>
 
     public bool IsEdited { get; set; } = false;
 }
- 

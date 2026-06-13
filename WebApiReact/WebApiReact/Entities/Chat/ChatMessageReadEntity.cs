@@ -15,4 +15,3 @@ public class ChatMessageReadEntity
     public DateTime ReadAt { get; set; } = DateTime.UtcNow;
 }
 
- 

@@ -9,4 +9,3 @@ public class ChatTypeEntity : BaseEntity<long>
     public virtual ICollection<ChatEntity>? Chats { get; set; }
 }
 
- 
