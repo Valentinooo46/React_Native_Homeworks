@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -20,6 +21,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddSingleton<UserMapper>();
+builder.Services.AddScoped<IIdentityService, IdentityService>();
+builder.Services.AddSingleton<ChatMapper>();
+builder.Services.AddScoped<IChatService, ChatService>();
 
 // CORS
 builder.Services.AddCors(options =>
@@ -118,6 +122,15 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddSignalR();
+
+builder.Services.ConfigureApplicationCookie(options => { options.Events.OnRedirectToLogin = context => { context.Response.StatusCode = StatusCodes.Status401Unauthorized; return Task.CompletedTask; }; });
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 50 * 1024 * 1024;
+    options.KeyLengthLimit = 10 * 1024;
+    options.ValueLengthLimit = int.MaxValue;
+});
 
 var app = builder.Build();
 
