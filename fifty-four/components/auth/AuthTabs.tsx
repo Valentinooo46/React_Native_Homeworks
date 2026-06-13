@@ -5,6 +5,8 @@ import { AuthTab } from "@/components/auth/AuthTab";
 
 export function AuthTabs() {
     const pathname = usePathname();
+
+    console.log("auth pathname", pathname);
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
     useEffect(() => {

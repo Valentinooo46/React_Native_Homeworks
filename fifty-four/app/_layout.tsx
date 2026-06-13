@@ -1,5 +1,5 @@
 import {DarkTheme, DefaultTheme, ThemeProvider} from '@react-navigation/native';
-import {Stack} from 'expo-router';
+import {Stack, usePathname} from 'expo-router';
 import {StatusBar} from 'expo-status-bar';
 import 'react-native-reanimated';
 import '../global.css';
@@ -14,6 +14,11 @@ import {SafeAreaProvider} from "react-native-safe-area-context";
 
 export default function RootLayout() {
 
+    const pathname = usePathname();
+
+    console.log("MainLayout pathname--", pathname);
+
+    console.log("----Layout Working----");
     //token
     //await SecureStore.getItemAsync('accessToken');
     const [storageReady, setStorageReady] = useState(false);
@@ -48,8 +53,8 @@ export default function RootLayout() {
             <Provider store={store}>
                 <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
                     <Stack>
-                        <Stack.Screen name="(auth)" options={{headerShown: false}}/>
                         <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
+                        <Stack.Screen name="(auth)" options={{headerShown: false}}/>
                         <Stack.Screen name="chat" options={{ headerShown: false }} />
                         <Stack.Screen name="modal" options={{presentation: 'modal', title: 'Modal'}}/>
                         <Stack.Screen name="logger" options={{headerShown: false}}/>
