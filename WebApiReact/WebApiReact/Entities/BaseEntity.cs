@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 using System.ComponentModel.DataAnnotations;
-=======
-﻿using System.ComponentModel.DataAnnotations;
->>>>>>> origin/main
 
 namespace WebApiReact.Entities;
 
@@ -20,4 +16,3 @@ public abstract class BaseEntity<T> : IEntity<T>
     public bool IsDeleted { get; set; }
     public DateTime DateCreated { get; set; } = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
 }
- 

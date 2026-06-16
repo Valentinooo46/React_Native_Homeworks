@@ -25,14 +25,7 @@ public class AppDbContext : IdentityDbContext<
         : base(options)
     {
     }
-
-    public DbSet<ChatEntity> Chats { get; set; }
-    public DbSet<ChatTypeEntity> ChatTypes { get; set; }
-    public DbSet<ChatMessageEntity> ChatMessages { get; set; }
-    public DbSet<ChatUserEntity> ChatUsers { get; set; }
-    public DbSet<ChatMessageReadEntity> ChatMessageReads { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder builder)
+ protected override void OnModelCreating(ModelBuilder builder)
 {
     base.OnModelCreating(builder);
     builder.Entity<UserRoleEntity>(ur =>
