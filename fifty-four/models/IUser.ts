@@ -1,6 +1,7 @@
 export default interface IUser{
-    username:string,
+    email:string,
+    name:string,
     roles: string[],
-    sub: string,
-    image:string,
+    image: string,
+    exp: number,
 }

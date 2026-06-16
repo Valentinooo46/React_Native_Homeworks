@@ -22,7 +22,7 @@ interface Message {
     timestamp: string;
 }
 
-export default function Chat() {
+export default function Mychat() {
     const [connection, setConnection] = useState<HubConnection | null>(null);
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);

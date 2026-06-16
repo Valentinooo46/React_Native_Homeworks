@@ -2,9 +2,11 @@ import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {authService} from "@/service/AuthService";
 import authReducer from "./reducers/AuthSlice";
 import { type TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import {chatService} from "@/service/chatService";
 
 const rootReducer = combineReducers({
     [authService.reducerPath]: authService.reducer,
+    [chatService.reducerPath]: chatService.reducer,
     auth: authReducer,
 })
 
@@ -14,6 +16,7 @@ const setupStore = () => {
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware().concat(
                 authService.middleware,
+                chatService.middleware
             ),
     })
 }

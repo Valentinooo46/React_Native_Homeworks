@@ -37,10 +37,7 @@ export default function RootLayout() {
             // console.log("User info", accessToken);
         }
     }
-
-
     const colorScheme = useColorScheme();
-
 
 
     if (!storageReady) {
@@ -55,7 +52,8 @@ export default function RootLayout() {
                     <Stack>
                         <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
                         <Stack.Screen name="(auth)" options={{headerShown: false}}/>
-                        <Stack.Screen name="chat" options={{ headerShown: false }} />
+                        <Stack.Screen name="mychat" options={{ headerShown: false }} />
+                        {/*<Stack.Screen name="chat/home" options={{ headerShown: false }} />*/}
                         <Stack.Screen name="modal" options={{presentation: 'modal', title: 'Modal'}}/>
                         <Stack.Screen name="logger" options={{headerShown: false}}/>
                     </Stack>
