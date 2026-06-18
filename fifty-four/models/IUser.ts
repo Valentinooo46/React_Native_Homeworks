@@ -4,4 +4,5 @@ export default interface IUser{
     roles: string[],
     image: string,
     exp: number,
+    token: string,
 }

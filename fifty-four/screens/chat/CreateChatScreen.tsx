@@ -65,7 +65,7 @@ export default function CreateChatScreen() {
             await createChat(form).unwrap();
             console.log("Crate Chat Screen");
             //Після створення ми приєднуємося в ЧАТ
-            //--------------------------------router.replace(`/chat/join`);
+            router.replace(`/chat/join`);
         } catch (e) {
             console.log("Create chat error:", e);
         }

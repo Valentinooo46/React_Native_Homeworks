@@ -102,7 +102,7 @@ export default function HomeScreen() {
 
                         <TouchableOpacity
                             activeOpacity={0.85}
-                            onPress={() => console.log('Join Chat')}
+                            onPress={() => router.push("/chat/join")}
                             className="border border-zinc-300 dark:border-zinc-700 py-4 rounded-2xl items-center"
                         >
                             <Text className="text-zinc-900 dark:text-zinc-100 text-lg font-semibold">
