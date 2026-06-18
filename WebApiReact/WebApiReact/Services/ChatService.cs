@@ -1,17 +1,16 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using WebApiReact.Data;
 using WebApiReact.Entities.Chat;
 using WebApiReact.Interfaces;
 using WebApiReact.Mapper;
 using WebApiReact.Models.Chat;
 
-
 namespace WebApiReact.Services;
 
 public class ChatService(
     AppDbContext context,
     IIdentityService identityService,
-    IChatMapper mapper) : IChatService
+    ChatMapper mapper) : IChatService
 {
     public async Task<long> CreateChatAsync(ChatCreateModel model)
     {
@@ -31,7 +30,6 @@ public class ChatService(
             .AsNoTracking()
             .Select(ct => mapper.ToChatTypeItemModel(ct))
             .ToListAsync();
-
     }
 
     public async Task<ChatMessageModel> SendMessageAsync(SendMessageModel model)
@@ -53,6 +51,11 @@ public class ChatService(
 
         context.ChatMessages.Add(message);
         await context.SaveChangesAsync();
+
+        // Потрібно підвантажити User для маппінгу UserName/UserImage
+        await context.Entry(message)
+            .Reference(m => m.User)
+            .LoadAsync();
 
         return mapper.ToChatMessageModel(message);
     }
@@ -94,7 +97,7 @@ public class ChatService(
         }
 
         var users = await query.ToListAsync();
-        return users.Select(u => mapper.ToUserShortModel(u)).ToList();
+        return users.Select(mapper.ToUserShortModel).ToList();
     }
 
     public async Task<List<ChatListItemModel>> GetMyChatsAsync()
@@ -107,7 +110,7 @@ public class ChatService(
             .Select(cu => cu.Chat)
             .ToListAsync();
 
-        return chats.Select(c => mapper.ToChatListItemModel(c)).ToList();
+        return chats.Select(mapper.ToChatListItemModel).ToList();
     }
 
     public async Task<List<ChatMessageModel>> GetChatMessagesAsync(long chatId)
@@ -125,9 +128,7 @@ public class ChatService(
             .OrderBy(m => m.Id)
             .ToListAsync();
 
-        var messages = entities.Select(m => mapper.ToChatMessageModel(m)).ToList();
-
-        return messages;
+        return entities.Select(mapper.ToChatMessageModel).ToList();
     }
 
     public async Task<bool> AmIAdminAsync(long chatId)

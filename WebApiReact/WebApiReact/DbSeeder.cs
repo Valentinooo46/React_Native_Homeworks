@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using WebApiReact.Constants;
 using WebApiReact.Data;
+using WebApiReact.Entities.Chat;
 using WebApiReact.Entities.Identity;
 using WebApiReact.Interfaces;
 using WebApiReact.Mapper;
@@ -87,7 +88,17 @@ public static class DbSeeder
             }
         }
 
+        if (!context.ChatTypes.Any())
+        {
+            var types = ChatTypes.All
+                .Select(x => new ChatTypeEntity
+                {
+                    TypeName = x
+                }).ToList();
 
+            context.ChatTypes.AddRange(types);
+            await context.SaveChangesAsync();
+        }
     }
 }
 

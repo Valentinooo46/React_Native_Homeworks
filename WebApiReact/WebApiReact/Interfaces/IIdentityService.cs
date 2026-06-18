@@ -1,4 +1,4 @@
-namespace WebApiReact.Interfaces;
+﻿namespace WebApiReact.Interfaces;
 
 public interface IIdentityService
 {

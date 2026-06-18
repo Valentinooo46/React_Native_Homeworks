@@ -1,5 +1,6 @@
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,9 @@ builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IChatService, ChatService>();
 builder.Services.AddSingleton<UserMapper>();
+builder.Services.AddScoped<IIdentityService, IdentityService>();
+builder.Services.AddSingleton<ChatMapper>();
+builder.Services.AddScoped<IChatService, ChatService>();
 
 // CORS
 builder.Services.AddCors(options =>
@@ -72,6 +76,23 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
     };
+
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var accessToken = context.Request.Query["access_token"];
+            var path = context.HttpContext.Request.Path;
+
+            if (!string.IsNullOrEmpty(accessToken) &&
+                path.StartsWithSegments("/hubs/chat"))
+            {
+                context.Token = accessToken;
+            }
+
+            return Task.CompletedTask;
+        }
+    };
 });
 
 
@@ -117,6 +138,15 @@ builder.Services.Configure<FormOptions>(options =>
     options.ValueLengthLimit = int.MaxValue;
 });
 
+builder.Services.ConfigureApplicationCookie(options => { options.Events.OnRedirectToLogin = context => { context.Response.StatusCode = StatusCodes.Status401Unauthorized; return Task.CompletedTask; }; });
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 50 * 1024 * 1024;
+    options.KeyLengthLimit = 10 * 1024;
+    options.ValueLengthLimit = int.MaxValue;
+});
+
 var app = builder.Build();
 app.UseSwagger(); // генерує /swagger/v1/swagger.json
 app.UseSwaggerUI(options =>
@@ -128,6 +158,10 @@ app.UseCors();
 
 app.MapHub<ChatHub>("/chat");
 
+//Новий чат для групи користувачів
+app.MapHub<MyChatHub>("/hubs/chat");
+
+// Configure the HTTP request pipeline.
 
 
 

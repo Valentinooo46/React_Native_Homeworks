@@ -27,7 +27,7 @@ export default function LoginScreen() {
                 dispatch(loginSuccess(result.token));
                 //Потрібно зберегти глобально інформацію про користувача
                 await SecureStore.setItemAsync('accessToken',  result.token);
-                router.push("/explore");
+                router.push("/chat/home");
             }
         }
         catch (err: any) {

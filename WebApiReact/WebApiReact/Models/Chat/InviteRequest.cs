@@ -1,4 +1,4 @@
-namespace WebApiReact.Models.Chat;
+﻿namespace WebApiReact.Models.Chat;
 
 public class InviteRequest
 {

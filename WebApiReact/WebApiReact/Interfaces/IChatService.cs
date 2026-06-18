@@ -1,4 +1,4 @@
-using WebApiReact.Models.Chat;
+﻿using WebApiReact.Models.Chat;
 
 namespace WebApiReact.Interfaces;
 

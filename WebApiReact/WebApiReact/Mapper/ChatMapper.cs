@@ -1,13 +1,14 @@
-using WebApiReact.Entities.Chat;
+﻿using WebApiReact.Entities.Chat;
 using WebApiReact.Entities.Identity;
 using WebApiReact.Models.Chat;
 
 namespace WebApiReact.Mapper;
 
 using Riok.Mapperly.Abstractions;
+using WebApiReact.Models.Account;
 
 [Mapper]
-public partial class ChatMapper: IChatMapper
+public partial class ChatMapper
 {
     // ChatCreateModel -> ChatEntity потребує контексту (UserId),
     // тому залишається ручним методом
@@ -39,7 +40,7 @@ public partial class ChatMapper: IChatMapper
     // Прості маппінги
     public partial ChatTypeItemModel ToChatTypeItemModel(ChatTypeEntity src);
 
-    [MapProperty(nameof(UserEntity.FirstName), nameof(UserShortModel.Name))]
+    [MapPropertyFromSource(nameof(UserShortModel.Name), Use = nameof(MapFullName))]
     public partial UserShortModel ToUserShortModel(UserEntity src);
 
     [MapProperty(nameof(ChatEntity.Id), nameof(ChatListItemModel.ChatId))]
