@@ -7,4 +7,3 @@ public class ChatEditModel
     public List<long>? AddUserIds { get; set; }
     public List<long>? RemoveUserIds { get; set; }
 }
- 

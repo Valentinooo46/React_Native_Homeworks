@@ -6,4 +6,3 @@ public class ChatListItemModel
     public string Name { get; set; } = null!;
     public long ChatTypeId { get; set; }
 }
- 

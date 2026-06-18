@@ -7,7 +7,7 @@ namespace WebApiReact.Mapper;
 using Riok.Mapperly.Abstractions;
 
 [Mapper]
-public partial class ChatMapper
+public partial class ChatMapper: IChatMapper
 {
     // ChatCreateModel -> ChatEntity потребує контексту (UserId),
     // тому залишається ручним методом
@@ -57,4 +57,3 @@ public partial class ChatMapper
     private string MapFullName(UserEntity src) =>
         src.FirstName + " " + src.LastName;
 }
- 

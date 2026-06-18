@@ -25,20 +25,20 @@ public class AppDbContext : IdentityDbContext<
         : base(options)
     {
     }
- protected override void OnModelCreating(ModelBuilder builder)
-{
-    base.OnModelCreating(builder);
-    builder.Entity<UserRoleEntity>(ur =>
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        ur.HasOne(ur => ur.Role)
-            .WithMany(r => r.UserRoles)
-            .HasForeignKey(r => r.RoleId)
-            .IsRequired();
+        base.OnModelCreating(builder);
+        builder.Entity<UserRoleEntity>(ur =>
+        {
+            ur.HasOne(ur => ur.Role)
+                .WithMany(r => r.UserRoles)
+                .HasForeignKey(r => r.RoleId)
+                .IsRequired();
 
             ur.HasOne(ur => ur.User)
-                .WithMany(r => r.UserRoles)
-                .HasForeignKey(u => u.UserId)
-                .IsRequired();
+            .WithMany(r => r.UserRoles)
+            .HasForeignKey(u => u.UserId)
+            .IsRequired();
         });
 
         // Користувачі в чатах

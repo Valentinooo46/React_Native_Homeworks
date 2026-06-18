@@ -11,7 +11,7 @@ namespace WebApiReact.Services;
 public class ChatService(
     AppDbContext context,
     IIdentityService identityService,
-    ChatMapper mapper) : IChatService
+    IChatMapper mapper) : IChatService
 {
     public async Task<long> CreateChatAsync(ChatCreateModel model)
     {
@@ -31,7 +31,7 @@ public class ChatService(
             .AsNoTracking()
             .Select(ct => mapper.ToChatTypeItemModel(ct))
             .ToListAsync();
-        
+
     }
 
     public async Task<ChatMessageModel> SendMessageAsync(SendMessageModel model)
@@ -209,4 +209,3 @@ public class ChatService(
         await context.SaveChangesAsync();
     }
 }
- 

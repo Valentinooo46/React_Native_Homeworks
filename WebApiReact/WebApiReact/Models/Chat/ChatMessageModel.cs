@@ -11,4 +11,3 @@ public class ChatMessageModel
     public string? UserImage { get; set; }
 }
 
- 

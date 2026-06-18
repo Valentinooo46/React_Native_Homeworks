@@ -6,4 +6,3 @@ public class ChatCreateModel
     public long ChatTypeId { get; set; }
     public List<long> UserIds { get; set; } = [];
 }
- 

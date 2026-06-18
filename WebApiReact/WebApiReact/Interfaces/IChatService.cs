@@ -14,4 +14,3 @@ public interface IChatService
     Task<List<ChatMessageModel>> GetChatMessagesAsync(long chatId);
     Task<bool> AmIAdminAsync(long chatId);
 }
- 
