@@ -8,7 +8,8 @@ import ChatWindow from "@/components/chat/ChatWindow";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function JoinScreen() {
-    const { data: chats } = useGetMyChatsQuery();
+    //Потрібно скинути кеш Query RTK
+    const { data: chats, refetch } = useGetMyChatsQuery();
     const { user } = useAppSelector(s => s.auth);
 
     const [activeChatId, setActiveChatId] = useState<number | null>(null);
@@ -23,6 +24,10 @@ export default function JoinScreen() {
         if (!user?.token) return;
         createChatConnection(user.token).start();
     }, [user?.token]);
+
+    useEffect(() => {
+        refetch(); //Скидаємо кеш Query RTK
+    },[]);
 
     return (
         <KeyboardAvoidingView
