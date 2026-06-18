@@ -46,6 +46,7 @@ public partial class ChatMapper
     [MapProperty(nameof(ChatEntity.Id), nameof(ChatListItemModel.ChatId))]
     public partial ChatListItemModel ToChatListItemModel(ChatEntity src);
 
+    [MapPropertyFromSource(nameof(ChatMessageModel.UserName), Use = nameof(MapUserName))]
     public partial ChatMessageModel ToChatMessageModel(ChatMessageEntity src);
 
     // Кастомні маппінги для обчислюваних полів

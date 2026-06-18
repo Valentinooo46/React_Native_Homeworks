@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 using WebApiReact.Interfaces;
 using WebApiReact.Models.Chat;
 using WebApiReact.Services;
@@ -46,8 +47,8 @@ public class ChatsController(IChatService chatService) : ControllerBase
         return Ok(chats);
     }
 
-    [HttpGet("{chatId}/messages")]
-    public async Task<IActionResult> GetChatMessages(long chatId)
+    [HttpGet("{chatId:long}/messages")]
+    public async Task<IActionResult> GetChatMessages([FromRoute] long chatId)
     {
         var messages = await chatService.GetChatMessagesAsync(chatId);
         return Ok(messages);

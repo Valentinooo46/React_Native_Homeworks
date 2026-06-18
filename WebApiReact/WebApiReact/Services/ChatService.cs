@@ -128,7 +128,9 @@ public class ChatService(
             .OrderBy(m => m.Id)
             .ToListAsync();
 
-        return entities.Select(mapper.ToChatMessageModel).ToList();
+        var result = entities.Select(mapper.ToChatMessageModel).ToList();
+
+        return result;
     }
 
     public async Task<bool> AmIAdminAsync(long chatId)
