@@ -14,6 +14,10 @@ public partial class UserMapper
     [MapProperty(nameof(RegisterModel.Email), nameof(UserEntity.UserName))]
     public partial UserEntity RegisterModelToUser(RegisterModel model);
 
+    [MapProperty(nameof(EditProfileModel.Email), nameof(UserEntity.UserName))]
+    public partial UserEntity EditModelToUser(EditProfileModel model);
+
+
     [MapPropertyFromSource(nameof(MeModel.DateCreated), Use = nameof(DateTimeToString))]
     [MapPropertyFromSource(nameof(MeModel.FullName), Use = nameof(GetFullName))]
     public partial MeModel UserToMeModel(UserEntity user);
