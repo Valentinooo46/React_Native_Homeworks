@@ -34,7 +34,7 @@ export default function HomeScreen() {
                     keyboardShouldPersistTaps="handled"
                     contentContainerStyle={{paddingBottom: 10}}
                 >
-                    <View className="items-center mt-10 py-16">
+                    <View className="items-center mt-10 py-1">
                         <View className="bg-emerald-500/10 px-4 py-1 rounded-full mb-4 border border-emerald-500/20">
                             <Text
                                 className="text-emerald-600 dark:text-emerald-400 text-[10px] font-bold tracking-[3px] uppercase">
@@ -51,11 +51,6 @@ export default function HomeScreen() {
                         </Text>
 
                         <View className="h-[2px] w-12 bg-emerald-500 my-6 rounded-full"/>
-
-                        <Text
-                            className="text-zinc-500 dark:text-zinc-400 text-center text-lg leading-7 font-medium px-4">
-                            Обери, що хочеш зробити далі
-                        </Text>
                     </View>
 
                     <View className="items-center my-10">

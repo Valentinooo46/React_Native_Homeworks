@@ -31,6 +31,8 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
         refetchOnMountOrArgChange: true,
     });
 
+    console.log('history', history);
+
     const { data: isAdmin } = useAmIAdminQuery(chatId ?? 0, {
         skip: !chatId,
     });
@@ -48,6 +50,8 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId }) => {
 
         return [...base, ...uniqueRealtime];
     }, [history, realtimeMessages]);
+
+    // console.log("Messages", messages);
 
     useEffect(() => {
         if (!chatId) return;

@@ -46,21 +46,27 @@ export default function RootLayout() {
 
     return (
         <>
-            <SafeAreaProvider>
+            {/*<SafeAreaProvider>*/}
+            {/*<Provider store={store}>*/}
+            {/*    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>*/}
+            {/*        <Stack>*/}
+            {/*            <Stack.Screen name="(tabs)" options={{headerShown: false}}/>*/}
+            {/*            <Stack.Screen name="(auth)" options={{headerShown: false}}/>*/}
+            {/*            <Stack.Screen name="mychat" options={{ headerShown: false }} />*/}
+            {/*            /!*<Stack.Screen name="chat/home" options={{ headerShown: false }} />*!/*/}
+            {/*            <Stack.Screen name="modal" options={{presentation: 'modal', title: 'Modal'}}/>*/}
+            {/*            <Stack.Screen name="logger" options={{headerShown: false}}/>*/}
+            {/*        </Stack>*/}
+            {/*        <StatusBar style="auto"/>*/}
+            {/*    </ThemeProvider>*/}
+            {/*</Provider>*/}
+            {/*</SafeAreaProvider>*/}
+
             <Provider store={store}>
-                <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-                    <Stack>
-                        <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
-                        <Stack.Screen name="(auth)" options={{headerShown: false}}/>
-                        <Stack.Screen name="mychat" options={{ headerShown: false }} />
-                        {/*<Stack.Screen name="chat/home" options={{ headerShown: false }} />*/}
-                        <Stack.Screen name="modal" options={{presentation: 'modal', title: 'Modal'}}/>
-                        <Stack.Screen name="logger" options={{headerShown: false}}/>
-                    </Stack>
-                    <StatusBar style="auto"/>
-                </ThemeProvider>
+                <SafeAreaProvider>
+                    <Stack screenOptions={{ headerShown: false }} />
+                </SafeAreaProvider>
             </Provider>
-            </SafeAreaProvider>
 
         </>
 
