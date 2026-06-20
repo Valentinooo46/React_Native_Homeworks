@@ -1,5 +1,5 @@
 import {DarkTheme, DefaultTheme, ThemeProvider} from '@react-navigation/native';
-import {Stack, usePathname} from 'expo-router';
+import {Slot, Stack, usePathname} from 'expo-router';
 import {StatusBar} from 'expo-status-bar';
 import 'react-native-reanimated';
 import '../global.css';
@@ -10,6 +10,8 @@ import * as SecureStore from 'expo-secure-store';
 import {loginSuccess} from "@/store/reducers/AuthSlice";
 import {useEffect, useState} from "react";
 import {SafeAreaProvider} from "react-native-safe-area-context";
+import {AuthTabs} from "@/components/auth/AuthTabs";
+import {KeyboardAvoidingView, Platform} from "react-native";
 
 
 export default function RootLayout() {
@@ -64,7 +66,9 @@ export default function RootLayout() {
 
             <Provider store={store}>
                 <SafeAreaProvider>
+
                     <Stack screenOptions={{ headerShown: false }} />
+
                 </SafeAreaProvider>
             </Provider>
 

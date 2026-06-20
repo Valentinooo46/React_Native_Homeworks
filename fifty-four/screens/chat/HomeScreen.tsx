@@ -53,7 +53,7 @@ export default function HomeScreen() {
                         <View className="h-[2px] w-12 bg-emerald-500 my-6 rounded-full"/>
                     </View>
 
-                    <View className="items-center my-10">
+                    <View className="items-center my-8">
                         <View className="relative">
 
                             <View className="w-44 h-44 rounded-full bg-emerald-500/10 items-center justify-center overflow-hidden">
@@ -70,7 +70,7 @@ export default function HomeScreen() {
 
                             <TouchableOpacity
                                 activeOpacity={0.85}
-                                onPress={() => console.log('Profile view')}
+                                onPress={() => router.push("/profile")}
                                 className="absolute bottom-1 right-1 w-12 h-12 rounded-full bg-emerald-500 items-center justify-center shadow-lg"
                             >
                                 <Text className="text-xl">✏️</Text>

@@ -1,12 +1,13 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
 import {fetchBaseQuery} from "@reduxjs/toolkit/query";
 import { BASE_URL_API } from "@/api";
-// import {serialize} from "object-to-formdata";
 import type IRegisterModel from "../models/IRegisterModel.ts";
 import type ILoginModel from "../models/ILoginModel.ts";
 import {serialize} from "object-to-formdata";
 import IMeModel from "@/models/IMeModel";
 import * as SecureStore from "expo-secure-store";
+import {IProfileEdit} from "@/models/IProfileEdit";
+import {IAuthResponse} from "@/models/IAuthResponse";
 
 export const authService = createApi({
     reducerPath: 'authApi',
@@ -51,6 +52,17 @@ export const authService = createApi({
                     method: "GET",
                 }
             }
+        }),
+        editProfile: build.mutation<IAuthResponse, IProfileEdit>({
+            query: (credentials) => {
+                const formData =  serialize(credentials);
+
+                return {
+                    url: 'EditProfile',
+                    method: 'PUT',
+                    body: formData
+                };
+            },
         })
     })
 })
@@ -58,5 +70,6 @@ export const authService = createApi({
 export const {
     useRegisterMutation,
     useLoginMutation,
+    useEditProfileMutation,
     useMeQuery,
 } = authService;

@@ -70,12 +70,6 @@ export default function RegisterScreen() {
 
         <View className="flex-1 bg-zinc-50 dark:bg-zinc-950">
             <StatusBar barStyle="default"/>
-
-            <KeyboardAvoidingView
-                style={{flex: 1}}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-                keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
-            >
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     keyboardShouldPersistTaps="handled"
@@ -85,7 +79,7 @@ export default function RegisterScreen() {
                     }}
                 >
 
-                    <View className="items-center px-6">
+                    <View className="items-center px-6 py-10">
                         <Text className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-8">
                             Реєстрація користувача
                         </Text>
@@ -169,7 +163,6 @@ export default function RegisterScreen() {
                         </Pressable>
                     </View>
                 </ScrollView>
-            </KeyboardAvoidingView>
         </View>
     );
 }
