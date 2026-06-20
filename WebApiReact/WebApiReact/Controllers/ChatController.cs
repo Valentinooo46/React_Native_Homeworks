@@ -5,7 +5,7 @@ using WebApiReact.Models.Chat;
 
 namespace WebApiReact.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 [ApiController]
 [Authorize]
 public class ChatController : ControllerBase

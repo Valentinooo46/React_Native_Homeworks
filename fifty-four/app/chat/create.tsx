@@ -1,4 +1,4 @@
-import CreateChatScreen from "@/screens/chat/CreateChatScreen";
+import CreateChatScreen from "@/screens/Chat/CreateChatScreen";
 
 export default function CreateChat() {
     return <CreateChatScreen />
