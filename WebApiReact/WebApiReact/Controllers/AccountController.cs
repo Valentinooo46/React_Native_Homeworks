@@ -5,7 +5,6 @@ using WebApiReact.Entities.Identity;
 using WebApiReact.Interfaces;
 using WebApiReact.Mapper;
 using WebApiReact.Models.Account;
-using WebApiReact.Services;
 
 namespace WebApiReact.Controllers;
 
@@ -14,7 +13,7 @@ namespace WebApiReact.Controllers;
 public class AccountController(IJwtTokenService jwtTokenService,
     UserManager<UserEntity> userManager,
     IImageService imageService,
-    IdentityService identityService,
+    IIdentityService identityService,
     UserMapper userMapper) : ControllerBase
 {
     [HttpPost]
@@ -67,8 +66,8 @@ public class AccountController(IJwtTokenService jwtTokenService,
         return Ok(me);
     }
 
+    [HttpPut]
     [Authorize]
-    [HttpPut("edit-profile")]
     [Consumes("multipart/form-data")]
     public async Task<IActionResult> EditProfile([FromForm] EditProfileModel model)
     {
