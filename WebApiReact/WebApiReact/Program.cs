@@ -24,6 +24,7 @@ builder.Services.AddSingleton<UserMapper>();
 builder.Services.AddScoped<IIdentityService, IdentityService>();
 builder.Services.AddSingleton<ChatMapper>();
 builder.Services.AddScoped<IChatService, ChatService>();
+builder.Services.AddScoped<ISmtpService, SmtpService>();
 
 // CORS
 builder.Services.AddCors(options =>
