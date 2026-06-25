@@ -20,8 +20,10 @@ export default function ForgotPasswordScreen() {
         console.log("Form data:", data);
         try {
             await forgotPassword(data).unwrap();
+            await SecureStore.setItemAsync("resetEmail", data.email);
 
             console.log("Result forgot password is good send message");
+            router.push("/verify-code");
             // if (result.token) {
             //     console.log(result.token);
             //     // 2. Hydrate your global Redux state
