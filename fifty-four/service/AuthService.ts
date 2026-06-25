@@ -8,7 +8,8 @@ import IMeModel from "@/models/IMeModel";
 import * as SecureStore from "expo-secure-store";
 import {IProfileEdit} from "@/models/IProfileEdit";
 import {IAuthResponse} from "@/models/IAuthResponse";
-import {IForgotPasswordModel} from "@/models/IForgotPasswordModel";
+import IForgotPasswordModel from "@/models/IForgotPasswordModel";
+import IResetPasswordModel from "@/models/IResetPasswordModel";
 
 export const authService = createApi({
     reducerPath: 'authApi',
@@ -72,6 +73,13 @@ export const authService = createApi({
                 body: model
             })
         }),
+        resetPassword: build.mutation<void, IResetPasswordModel>({
+            query: (model) => ({
+                url: "ResetPassword",
+                method: "POST",
+                body: model,
+            })
+        }),
     })
 })
 
@@ -80,5 +88,6 @@ export const {
     useLoginMutation,
     useEditProfileMutation,
     useForgotPasswordMutation,
+    useResetPasswordMutation,
     useMeQuery,
 } = authService;
