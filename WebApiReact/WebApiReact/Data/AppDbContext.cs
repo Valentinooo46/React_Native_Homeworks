@@ -16,17 +16,15 @@ public class AppDbContext : IdentityDbContext<
     IdentityRoleClaim<long>,
     IdentityUserToken<long>>
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
-    {
-    }
-
     public DbSet<ChatEntity> Chats { get; set; }
     public DbSet<ChatTypeEntity> ChatTypes { get; set; }
     public DbSet<ChatMessageEntity> ChatMessages { get; set; }
     public DbSet<ChatUserEntity> ChatUsers { get; set; }
     public DbSet<ChatMessageReadEntity> ChatMessageReads { get; set; }
-
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
+    {
+    }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -38,9 +36,9 @@ public class AppDbContext : IdentityDbContext<
                 .IsRequired();
 
             ur.HasOne(ur => ur.User)
-                .WithMany(r => r.UserRoles)
-                .HasForeignKey(u => u.UserId)
-                .IsRequired();
+            .WithMany(r => r.UserRoles)
+            .HasForeignKey(u => u.UserId)
+            .IsRequired();
         });
 
         // Користувачі в чатах

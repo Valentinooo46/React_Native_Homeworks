@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 using WebApiReact.Entities.Identity;
 
 namespace WebApiReact.Entities.Chat;
