@@ -13,6 +13,7 @@ using WebApiReact.Hubs;
 using WebApiReact.Interfaces;
 using WebApiReact.Mapper;
 using WebApiReact.Services;
+using WebApiReact.Smtp;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,9 @@ builder.Services.AddScoped<IIdentityService, IdentityService>();
 builder.Services.AddSingleton<ChatMapper>();
 builder.Services.AddScoped<IChatService, ChatService>();
 builder.Services.AddScoped<ISmtpService, SmtpService>();
+
+builder.Services.Configure<EmailConfiguration>(
+    builder.Configuration.GetSection("EmailConfiguration"));
 
 // CORS
 builder.Services.AddCors(options =>
