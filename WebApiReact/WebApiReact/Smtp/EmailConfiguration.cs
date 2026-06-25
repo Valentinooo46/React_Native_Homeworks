@@ -5,22 +5,22 @@ public class EmailConfiguration
     /// <summary>
     /// Хто відправляє листа
     /// </summary>
-    public static string From { get; set; } = "super.novakvova@ukr.net";
+    public string From { get; set; } = string.Empty;
     /// <summary>
     /// Сервер smtp
     /// </summary>
-    public static string SmtpServer { get; set; } = "smtp.ukr.net";
+    public string SmtpServer { get; set; } = string.Empty;
     /// <summary>
     /// Порт на сервері, на якому він працює
     /// </summary>
-    public static int SmtpPort { get; set; } = 2525;
+    public int SmtpPort { get; set; }
     /// <summary>
     /// Хто буде піключатися до SMTP серверу
     /// </summary>
-    public static string UserName { get; set; } = "super.novakvova@ukr.net";
+    public string UserName { get; set; } = string.Empty;
     /// <summary>
     /// Пароль видає нам сам UKR.NET
     /// </summary>
-    public static string Password { get; set; } = "9J8nMfl6V0KjsowM";
+    public string Password { get; set; } = string.Empty;
 
 }

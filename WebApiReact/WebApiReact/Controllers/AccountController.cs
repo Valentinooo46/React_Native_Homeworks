@@ -188,17 +188,22 @@ public class AccountController(IJwtTokenService jwtTokenService,
             </html>"
         };
 
-        var result = await smtpService.SendEmailAsync(emailModel);
+        try
+        {
+            var result = await smtpService.SendEmailAsync(emailModel);
 
-        if (result)
             return Ok();
-        else
+        }
+        catch(Exception ex)
+        {
             return BadRequest(new
             {
                 Status = 400,
                 IsValid = false,
-                Errors = new { Email = "Користувача з такою поштою не існує" }
+                Errors = new { Email = ex.Message }
             });
+        }
+            
     }
 
 

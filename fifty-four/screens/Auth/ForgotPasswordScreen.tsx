@@ -1,34 +1,35 @@
-import {View, Text, TextInput, Pressable, TouchableOpacity} from "react-native";
+import { View, Text, TextInput, Pressable, TouchableOpacity } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import {useRouter} from "expo-router";
 import {loginSuccess} from "@/store/reducers/AuthSlice";
 import {useAppDispatch} from "@/hooks/redux";
 import {useState} from "react";
-import ILoginModel from "@/models/ILoginModel";
+import IForgotPasswordModel from "@/models/IForgotPasswordModel";
 import * as SecureStore from 'expo-secure-store';
-import {useLoginMutation} from "@/service/AuthService";
+import {useForgotPasswordMutation} from "@/service/AuthService";
 
 
-export default function LoginScreen() {
-    const { control, handleSubmit } = useForm<ILoginModel>();
-    const [login, { isLoading }] = useLoginMutation();
+export default function ForgotPasswordScreen() {
+    const { control, handleSubmit } = useForm<IForgotPasswordModel>();
+    const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
     const [serverError, setServerError] = useState<string | null>(null);
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const onSubmit = async (data: ILoginModel) => {
+    const onSubmit = async (data: IForgotPasswordModel) => {
         console.log("Form data:", data);
         try {
-            const result = await login(data).unwrap();
+            await forgotPassword(data).unwrap();
 
-            if (result.token) {
-                console.log(result.token);
-                // 2. Hydrate your global Redux state
-                dispatch(loginSuccess(result.token));
-                //Потрібно зберегти глобально інформацію про користувача
-                await SecureStore.setItemAsync('accessToken',  result.token);
-                router.push("/chat/home");
-            }
+            console.log("Result forgot password is good send message");
+            // if (result.token) {
+            //     console.log(result.token);
+            //     // 2. Hydrate your global Redux state
+            //     dispatch(loginSuccess(result.token));
+            //     //Потрібно зберегти глобально інформацію про користувача
+            //     await SecureStore.setItemAsync('accessToken',  result.token);
+            //     router.push("/chat/home");
+            // }
         }
         catch (err: any) {
             console.error("Помилка авторизації:", err);
@@ -56,7 +57,7 @@ export default function LoginScreen() {
     return (
         <View className="flex-1 justify-center bg-zinc-50 items-center px-6">
             <Text className="text-3xl font-bold text-blue-600 mb-8">
-                Увійти в акаунт
+                Відновлення пароля
             </Text>
 
             {serverError && (
@@ -82,34 +83,26 @@ export default function LoginScreen() {
                         )}
             />
 
-            <Controller control={control}
-                        name="password"
-                        rules={{ required: "Пароль обов’язковий" }}
-                        render={({ field: { onChange, value } }) => (
-                            <TextInput placeholder="Пароль"
-                                       secureTextEntry
-                                       value={value}
-                                       onChangeText={onChange}
-                                       className="w-full max-w-md bg-white rounded-lg px-4 py-3 mb-6 border border-gray-300"
-                            />
-                        )}
-            />
+
+            <View className="items-center w-full mt-4">
+                <Pressable onPress={handleSubmit(onSubmit)}
+                           className="w-full max-w-md bg-blue-500 rounded-lg py-3 items-center"
+                >
+                    <Text className="text-white font-semibold">Надіслати</Text>
+                </Pressable>
+
+                <TouchableOpacity
+                    className="mb-6 mt-2"
+                    onPress={() => router.replace('/login')}
+                >
+                    <Text className="font-spartan-semibold text-[13px] text-[#093030] dark:text-[#DFF7E2]">
+                        Повернутися до логіну
+                    </Text>
+                </TouchableOpacity>
 
 
-            <Pressable onPress={handleSubmit(onSubmit)}
-                       className="w-full max-w-md bg-blue-500 rounded-lg py-3 items-center"
-            >
-                <Text className="text-white font-semibold">Увійти</Text>
-            </Pressable>
+            </View>
 
-            <TouchableOpacity
-                className="mb-6 mt-2"
-                onPress={() => router.push('/forgot-password')}
-            >
-                <Text className="font-spartan-semibold text-[13px] text-[#093030] dark:text-[#DFF7E2]">
-                    Forgot Password?
-                </Text>
-            </TouchableOpacity>
         </View>
     );
 }
