@@ -1,4 +1,4 @@
-import JoinScreen from "@/screens/Chat/JoinScreen";
+import JoinScreen from "@/screens/chat/JoinScreen";
 
 export default function JoinChat() {
     return <JoinScreen />

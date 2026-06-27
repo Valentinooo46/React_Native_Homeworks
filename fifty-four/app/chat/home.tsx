@@ -1,4 +1,4 @@
-import HomeScreen from "@/screens/Chat/HomeScreen";
+import HomeScreen from "@/screens/chat/HomeScreen";
 
 export default function Home() {
     return <HomeScreen />
